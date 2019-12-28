@@ -1,0 +1,65 @@
+# Config file for automatic testing at travis-ci.org
+dist: xenial
+language: python
+matrix:
+  fast_finish: true
+  include:
+    - name: Check codestyle
+      python: 3.8
+      env: TOXENV="run-blackcheck,run-isortcheck"
+    - name: Docs
+      python: 3.8
+      env:
+        - DOCS="true"
+        # TODO: Doctr deploy key
+        #       * Run `tox -e run-cmd -- doctr configure --no-upload-key --no-authenticate --keypath docs/doctr_deploy_key`
+        #       * Follow doctr's instructions regarding setting up the deploy key on Github
+        #       * Replace the "secure: ..." line below with the "secure" line printed by doctr
+        # - secure: ...
+        # TODO: Environment variables for deployment of documentation artifcats to Bintray
+        #       * Set up a Bintray repo and package (preferably mirroring the username/repo name on github
+        #       * Set BINTRAY_USER, BINTRAY_REPO, BINTRAY_PACKAGE (un-comment lines)
+        #       * run `tox -e run-travis-encrypt`
+        #       * paste in e.g. "BINTRAY_TOKEN=0a23802f7c9907f9087e37f21346a3a2805feb1a" when prompted for "Password"
+        #       * replace the "secure: ..." line below with the "secure" line printed by travis-encrypt
+        # - BINTRAY_USER=goerz
+        # - BINTRAY_REPO=pypkg_m7rap
+        # - BINTRAY_PACKAGE=pypkg_m7rap
+        # # BINTRAY_TOKEN
+        # - secure: ...
+    - name: Python 3.6
+      python: 3.6
+      env: TOXENV=py36-test
+    - name: Python 3.7
+      python: 3.7
+      env: TOXENV=py37-test
+    - name: Python 3.8
+      python: 3.8
+      env: TOXENV=py38-test
+
+install:
+  # any failure stops the build
+  - set -e
+  - export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
+  - travis_wait source .travis/texlive/texlive_install.sh
+  - pip install tox
+  - pip install 'coverage<5.0' coveralls
+  - pip freeze
+  - printenv
+cache:
+  directories:
+    - /tmp/texlive
+    - $HOME/.texlive
+script:
+  # any failure stops testing immediately
+  - set -e
+  - |
+    if [[ "${DOCS}" == "true" ]]; then
+      source .travis/doctr_build.sh
+    else
+      tox -e $TOXENV
+    fi
+  - echo "DONE"
+after_success:
+  # coveralls is prone to random failures (which would fail the Travis job), so we'll handle those silently
+  - if [[ "${TOXENV}" =~ test ]]; then coveralls -v || echo "Cannot upload to coveralls"; fi
