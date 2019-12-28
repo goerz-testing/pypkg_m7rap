@@ -1,5 +1,15 @@
 master/API/pypkg_m7rap.html
+master/API/pypkg_m7rap.mod.html
+master/API/pypkg_m7rap.subpkg.html
+master/API/pypkg_m7rap.subpkg.submod.html
+master/_modules/index.html
+master/_modules/pypkg_m7rap.html
+master/_modules/pypkg_m7rap/mod.html
+master/_modules/pypkg_m7rap/subpkg/submod.html
+master/_sources/API/pypkg_m7rap.mod.rst.txt
 master/_sources/API/pypkg_m7rap.rst.txt
+master/_sources/API/pypkg_m7rap.subpkg.rst.txt
+master/_sources/API/pypkg_m7rap.subpkg.submod.rst.txt
 master/_sources/contributing.rst.txt
 master/_sources/history.rst.txt
 master/_sources/index.rst.txt
