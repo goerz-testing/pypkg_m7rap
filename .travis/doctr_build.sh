@@ -25,10 +25,10 @@ else
     # will then later transfer those links into versions.json
 
     echo "### [zip]"
-    cp -r docs/_build/html docs/pypkg_m7rap_$TRAVIS_TAG
+    cp -r docs/_build/html docs/pypkg_m7rap-$TRAVIS_TAG
     cd docs/ || exit
-    zip -r "pypkg_m7rap_$TRAVIS_TAG.zip" "pypkg_m7rap-$TRAVIS_TAG"
-    rm -rf "pypkg_m7rap_$TRAVIS_TAG"
+    zip -r "pypkg_m7rap-$TRAVIS_TAG.zip" "pypkg_m7rap-$TRAVIS_TAG"
+    rm -rf "pypkg_m7rap-$TRAVIS_TAG"
     cd ../ || exit
     mv docs/*.zip docs/_build/artifacts
 
@@ -41,8 +41,6 @@ else
     echo "### [epub]"
     tox -e docs -- -b epub _build/epub
     mv docs/_build/epub/*.epub "docs/_build/artifacts/pypkg_m7rap-$TRAVIS_TAG.epub"
-
-    rm -rf docs/_build/artifacts
 
     # upload to bintray
     # Depends on $BINTRAY_USER, $BINTRAY_REPO, $BINTRAY_PACKAGE, and secret $BINTRAY_TOKEN from .travis.yml
