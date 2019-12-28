@@ -17,6 +17,9 @@ if [ ! -z "$TRAVIS" ]; then
     if [ -z "$BINTRAY_USER" ]; then
         echo "BINTRAY_USER must be set" && sync && exit 1
     fi
+    if [ -z "$BINTRAY_TOKEN" ]; then
+        echo "BINTRAY_TOKEN must be set" && sync && exit 1
+    fi
     if [ -z "$BINTRAY_PACKAGE" ]; then
         echo "BINTRAY_PACKAGE must be set" && sync && exit 1
     fi
