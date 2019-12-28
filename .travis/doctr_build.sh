@@ -10,9 +10,6 @@
 
 echo "# DOCTR - deploy documentation"
 
-echo "## Generate main html documentation"
-tox -e docs
-
 if [ ! -z "$TRAVIS" ]; then
     echo "## Check bintray status"
     # We *always* do this check: we don't just want to find out about
@@ -31,6 +28,9 @@ if [ ! -z "$TRAVIS" ]; then
         echo "Error: Cannot find $BINTRAY_PACKAGE in $url: $response" && sync && exit 1
     fi
 fi
+
+echo "## Generate main html documentation"
+tox -e docs
 
 if [ ! -z "$TRAVIS_TAG" ]; then
 
