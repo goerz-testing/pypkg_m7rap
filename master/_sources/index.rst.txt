@@ -15,7 +15,7 @@ Welcome to PyPkg M7RAP's documentation!
    :target: https://travis-ci.org/goerz/pypkg_m7rap
 .. image:: https://ci.appveyor.com/api/projects/status/tpbh3orvub50ixtw?svg=true
    :alt: AppVeyor Continuous Integration
-   :target: https://ci.appveyor.com/project/goerz/pypkg_m7rap
+   :target: https://ci.appveyor.com/project/goerz/pypkg-m7rap
 .. image:: https://img.shields.io/coveralls/github/goerz/pypkg_m7rap/master.svg
    :alt: Coveralls
    :target: https://coveralls.io/github/goerz/pypkg_m7rap?branch=master
@@ -30,7 +30,7 @@ Welcome to PyPkg M7RAP's documentation!
    readme
    contributing
    history
-   
+
 
 
 API
