@@ -32,6 +32,7 @@ dev_requirements = [
     'better-apidoc',
     'coverage<5.0',
     'ipython',
+    'coveralls',
     'doctr',
     'flake8',
     'gitpython',

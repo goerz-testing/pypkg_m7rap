@@ -34,7 +34,6 @@ install:
   - export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
   - travis_wait source .travis/texlive/texlive_install.sh
   - pip install tox
-  - pip install 'coverage<5.0' coveralls
   - pip freeze
   - printenv
 cache:
@@ -53,4 +52,4 @@ script:
   - echo "DONE"
 after_success:
   # coveralls is prone to random failures (which would fail the Travis job), so we'll handle those silently
-  - if [[ "${TOXENV}" =~ test ]]; then coveralls -v || echo "Cannot upload to coveralls"; fi
+  - if [[ "${TOXENV}" =~ test ]]; then tox -e run-cmd -- coveralls -v || echo "Cannot upload to coveralls"; fi
