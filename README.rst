@@ -11,11 +11,10 @@ PyPkg M7RAP
 .. image:: https://img.shields.io/pypi/v/pypkg_m7rap.svg
    :alt: PyPkg M7RAP on the Python Package Index
    :target: https://pypi.python.org/pypi/pypkg_m7rap
-
 .. image:: https://img.shields.io/travis/goerz/pypkg_m7rap.svg
    :alt: Travis Continuous Integration
    :target: https://travis-ci.org/goerz/pypkg_m7rap
-.. image:: https://img.shields.io/badge/appveyor-no%20id-red.svg
+.. image:: https://ci.appveyor.com/api/projects/status/tpbh3orvub50ixtw?svg=true
    :alt: AppVeyor Continuous Integration
    :target: https://ci.appveyor.com/project/goerz/pypkg_m7rap
 .. image:: https://img.shields.io/coveralls/github/goerz/pypkg_m7rap/master.svg
