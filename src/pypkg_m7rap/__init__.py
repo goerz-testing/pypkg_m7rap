@@ -1,4 +1,4 @@
-"""Top-level package for PyPkg M7RAP."""
+"""Top-level package."""
 
 __version__ = '0.1.0-dev'
 
