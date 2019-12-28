@@ -13,6 +13,25 @@ echo "# DOCTR - deploy documentation"
 echo "## Generate main html documentation"
 tox -e docs
 
+if [ ! -z "$TRAVIS" ]; then
+    echo "## Check bintray status"
+    # We *always* do this check: we don't just want to find out about
+    # authentication errors when making a release
+    if [ -z "$BINTRAY_USER" ]; then
+        echo "BINTRAY_USER must be set" && sync && exit 1
+    fi
+    if [ -z "$BINTRAY_PACKAGE" ]; then
+        echo "BINTRAY_PACKAGE must be set" && sync && exit 1
+    fi
+    url="https://api.bintray.com/repos/$BINTRAY_SUBJECT/$BINTRAY_REPO/packages"
+    response=$(curl --user "$BINTRAY_USER:$BINTRAY_TOKEN" "$url")
+    if [ -z "${response##*$BINTRAY_PACKAGE*}" ]; then
+        echo "Bintray OK: $url -> $response"
+    else
+        echo "Error: Cannot find $BINTRAY_PACKAGE in $url: $response" && sync && exit 1
+    fi
+fi
+
 if [ ! -z "$TRAVIS_TAG" ]; then
 
     echo "Deploying as TAG $TRAVIS_TAG"
@@ -31,10 +50,10 @@ if [ ! -z "$TRAVIS_TAG" ]; then
 
     echo "### [zip]"
     cp -r docs/_build/html docs/_build/pypkg_m7rap-$TRAVIS_TAG
-    cd docs/_build || exit
+    cd docs/_build || exit 1
     zip -r "pypkg_m7rap-$TRAVIS_TAG.zip" "pypkg_m7rap-$TRAVIS_TAG"
     rm -rf "pypkg_m7rap-$TRAVIS_TAG"
-    cd ../../ || exit
+    cd ../../ || exit 1
     mv "docs/_build/pypkg_m7rap-$TRAVIS_TAG.zip" docs/_build/artifacts
 
     echo "### [pdf]"
@@ -50,22 +69,22 @@ if [ ! -z "$TRAVIS_TAG" ]; then
     if [ ! -z "$TRAVIS" ]; then
 
         # upload to bintray
-        # Depends on $BINTRAY_USER, $BINTRAY_REPO, $BINTRAY_PACKAGE, and secret $BINTRAY_TOKEN from .travis.yml
+        # Depends on $BINTRAY_USER, $BINTRAY_SUBJECT, $BINTRAY_REPO, $BINTRAY_PACKAGE, and secret $BINTRAY_TOKEN from .travis.yml
         echo "Upload artifacts to bintray"
         for filename in docs/_build/artifacts/*; do
-            BINTRAY_UPLOAD="https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_REPO/$BINTRAY_PACKAGE/$TRAVIS_TAG/$(basename $filename)"
-            echo "Uploading $filename artifact to $BINTRAY_UPLOAD"
-            response=$(curl -T "$filename" "-u$BINTRAY_USER:$BINTRAY_TOKEN" "$BINTRAY_UPLOAD")
+            url="https://api.bintray.com/content/$BINTRAY_SUBJECT/$BINTRAY_REPO/$BINTRAY_PACKAGE/$TRAVIS_TAG/$(basename $filename)"
+            echo "Uploading $filename artifact to $url"
+            response=$(curl --upload-file "$filename" --user "$BINTRAY_USER:$BINTRAY_TOKEN" "$url")
             if [ -z "${response##*success*}" ]; then
                 echo "Uploaded $filename: $response"
-                echo "https://dl.bintray.com/$BINTRAY_USER/$BINTRAY_REPO/$(basename $filename)" >> docs/_build/html/_downloads
+                echo "https://dl.bintray.com/$BINTRAY_SUBJECT/$BINTRAY_REPO/$(basename $filename)" >> docs/_build/html/_downloads
             else
                 echo "Error: Failed to upload $filename: $response" && sync && exit 1
             fi
         done
         echo "Publishing release on bintray"
-        BINTRAY_RELEASE="https://api.bintray.com/content/$BINTRAY_USER/$BINTRAY_REPO/$BINTRAY_PACKAGE/$TRAVIS_TAG/publish"
-        response=$(curl -X POST "-u$BINTRAY_USER:$BINTRAY_TOKEN" "$BINTRAY_RELEASE")
+        url="https://api.bintray.com/content/$BINTRAY_SUBJECT/$BINTRAY_REPO/$BINTRAY_PACKAGE/$TRAVIS_TAG/publish"
+        response=$(curl --request POST "-u$BINTRAY_USER:$BINTRAY_TOKEN" "$url")
         if [ -z "${response##*files*}" ]; then
             echo "Finished bintray release : $response"
         else
