@@ -30,7 +30,8 @@ requirements = []
 # requirements for development (testing, generating docs)
 dev_requirements = [
     'better-apidoc',
-    'coverage',
+    'coverage<5.0',
+    'ipython',
     'doctr',
     'flake8',
     'gitpython',
@@ -68,9 +69,7 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Natural Language :: English',
     ],
-    description=(
-        "Test of Python Packaging"
-    ),
+    description=("Test of Python Packaging"),
     python_requires='>=3.6',
     install_requires=requirements,
     extras_require={'dev': dev_requirements},
