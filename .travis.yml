@@ -1,6 +1,9 @@
 # Config file for automatic testing at travis-ci.org
 dist: xenial
 language: python
+env:
+  global:
+    - COVERALLS_PARALLEL=true
 matrix:
   fast_finish: true
   include:
