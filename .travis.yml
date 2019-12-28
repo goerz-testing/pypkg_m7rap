@@ -11,22 +11,13 @@ matrix:
       python: 3.8
       env:
         - DOCS="true"
-        # TODO: Doctr deploy key
-        #       * Run `tox -e run-cmd -- doctr configure --no-upload-key --no-authenticate --keypath docs/doctr_deploy_key`
-        #       * Follow doctr's instructions regarding setting up the deploy key on Github
-        #       * Replace the "secure: ..." line below with the "secure" line printed by doctr
-        # - secure: ...
-        # TODO: Environment variables for deployment of documentation artifcats to Bintray
-        #       * Set up a Bintray repo and package (preferably mirroring the username/repo name on github
-        #       * Set BINTRAY_USER, BINTRAY_REPO, BINTRAY_PACKAGE (un-comment lines)
-        #       * run `tox -e run-travis-encrypt`
-        #       * paste in e.g. "BINTRAY_TOKEN=0a23802f7c9907f9087e37f21346a3a2805feb1a" when prompted for "Password"
-        #       * replace the "secure: ..." line below with the "secure" line printed by travis-encrypt
-        # - BINTRAY_USER=goerz
-        # - BINTRAY_REPO=pypkg_m7rap
-        # - BINTRAY_PACKAGE=pypkg_m7rap
-        # # BINTRAY_TOKEN
-        # - secure: ...
+        # Doctr deploy key
+        - secure: "BHBQ+GuQejZ7iy74J/ZJSKNsGH4WnjUxYaVeFE16rMyF1herCj11ektUGGsQ1SsteWHpm/9GLI1WSUvkyp/YtpMNr8KOtvwr5ugwuKL9vZJ815jLvhcoLus5gHq04wDQuARZJazGPENq6UlMSysfWW5r17/Q79JHQh5TcxojMDI8wpzpPeu0AHqpDzQc/HCMcSTRojcbG08GaMmTNAp+mzZSNMxht4TK9u4uuq9XPF08hRw1krQ68qFz8a2UHDHT4Mf3xvebeAiG+ApQ8N/p2giDztcE3UNOjT4lqFuyUouW3QIbsYP8tw6Vuvj7Qmbj7mmhKNVbAgfR7N0/+DXyYtV0iK2QLU/xr9h69kEz1UKGjmDThx4La9zRLH8o0Cxn0TEO0RbdSA5GvFXiLwB8p5FBxtpRAJTaDa8j/dk/x18XRH9k5BN4nY3gZOf83gWAEtreorulCaB/tgZDxtPx/EhnKhI542sp9dXCD7sHCNykZTj8yLKF/YEWwOILqzFKpTK2zSnKVe5mWPpNaUg7LoAUJ+6T0KuTxN9jTGeNF2uIyiEqXkXXRvmME11O0WeK9TYJMgHtwkWaTZnn1h9llGV7ZgocM8xWCgI/2GIJsKIIDNlg+/TbPFGLvriA6hoSZ5iai5sU8d43P3HD9V3tmAfG6TjWkngkIUFPOdhsZZQ="
+        - BINTRAY_USER=goerz
+        - BINTRAY_REPO=pypkg_m7rap
+        - BINTRAY_PACKAGE=pypkg_m7rap
+        # BINTRAY_TOKEN
+        - secure: HmegPzAZIcZepB1Rhi2MykO6h1yyJWRn4qbmqrqaNb3g8x0TQucSUCmQZ3Bjm1IpLYhiOH7J77EHdLSZFIz7IZbkukz8MTFo5SPeSBuJ0p+0umDPByfxerhsCpPlE7suXGQyXOXqCazwAqaBsE3d0EQqhw70G5dqlP7M5DeD6ykKm84NUFYPhigub0MEKg3GEXJffNABsOCQJbgfKLSLmuBIDk0NsJ9KIqf5h8EwIp/uMix4VqLN5hdCwpSebWoIJqQ1SiAC4lyZ3V1EmRnQDdI46fnWE1Tcd1vjA5LWn+2QLK83eduxsPi2YXsBG8qPqs0WfUKdl/7717nUQM5/mxzIGmsJQycqIwHObksGfInY1D/0BQKs2QtUT0AIgOYRbANhZqo5B1I/y0U6zQZDzB2+FUEN0ABpCKSTdUonC9zG0uMokdSLzM0xuzcngMrasaR6YeUGuGLUdJUcFJGX26s7x17shT45EQBDgsWIvurL6by2cKP21h3v2sfzGOTgpG98aiQQf3+6QKF0LvnhHgzy9fq9vSnQDTFBFmjGEzV5fasKzfrD0cNTwVGnq4X+5T10bJVgGWlNc0r4lzqA1Qt0+B8eNPna4t0HWnX7c2ZjxqbNfjmi+/zjvO5o885fY6rckkauOIX4daNEWTJY4HpcApuVUdrHVZpp/0Nk8sE=
     - name: Python 3.6
       python: 3.6
       env: TOXENV=py36-test
